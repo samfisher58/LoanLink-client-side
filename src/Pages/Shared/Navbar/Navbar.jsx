@@ -1,20 +1,30 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
+import useAuth from '../../../Hooks/useAuth';
+
 
 const Navbar = () => {
+	const {user, logOut}  = useAuth();
+	const handleLogOut = () => {
+		logOut()
+			.then()
+			.catch(error => {
+				console.log(error);
+			});
+	};
 	const links = (
 		<>
 			<li>
-				<NavLink to="">Home</NavLink>
+				<NavLink to="/">Home</NavLink>
 			</li>
 			<li>
-				<NavLink to="">All Loans</NavLink>
+				<NavLink to="/all-loans">All Loans</NavLink>
 			</li>
 			<li>
-				<NavLink to="">About Us</NavLink>
+				<NavLink to="/about-us">About Us</NavLink>
 			</li>
 			<li>
-				<NavLink to="">Contact</NavLink>
+				<NavLink to="/contact">Contact</NavLink>
 			</li>
 			<li>
 				<NavLink to="">DashBoard(private route)</NavLink>
@@ -57,25 +67,24 @@ const Navbar = () => {
 					<ul className="menu menu-horizontal px-1">{links}</ul>
 				</div>
 				<div className="navbar-end flex items-center gap-3">
-					{'user' ? (
+					{user ? (
 						<div className="dropdown dropdown-end">
 							<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-								<div className="w-10 rounded-full border-2 border-primary overflow-hidden">
-									<img alt="User" src="{user.photoURL}" />
-									{/* <img alt="User" src={user.photoURL} /> */}
+								<div className="w-10 rounded-full border-2 border-primary overflow-hidden">						
+									<img alt="User" src={user.photoURL}/>
 								</div>
 							</label>
 							<ul
 								tabIndex={0}
 								className="menu dropdown-content mt-3 p-4 shadow-lg bg-base-100 rounded-xl w-60 animate-slide-in"
 							>
-								<li className="font-semibold text-lg">User name</li>
-								{/* <li className="font-semibold text-lg">{user.displayName}</li> */}
-								<li className="text-sm text-gray-500">'user email'</li>
-								{/* <li className="text-sm text-gray-500">{user.email}</li> */}
+								
+								<li className="font-semibold text-lg">{user.displayName}</li>
+								
+								<li className="text-sm text-gray-500">{user.email}</li>
 								<li className="mt-2">
 									<button
-										// onClick={handleLogOut}
+										onClick={handleLogOut}
 										className="btn btn-primary w-full hover:btn-accent transition-colors duration-200"
 									>
 										Log Out
@@ -85,7 +94,7 @@ const Navbar = () => {
 						</div>
 					) : (
 						<NavLink
-							to="/auth/login"
+							to="/login"
 							className="btn btn-primary hover:btn-accent transition-colors duration-200"
 						>
 							Sign In
