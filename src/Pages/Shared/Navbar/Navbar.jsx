@@ -27,7 +27,7 @@ const Navbar = () => {
 				<NavLink to="/contact">Contact</NavLink>
 			</li>
 			<li>
-				<NavLink to="">DashBoard(private route)</NavLink>
+				<NavLink to="/dashboard">DashBoard(private route)</NavLink>
 			</li>
 		</>
 	);
@@ -70,17 +70,16 @@ const Navbar = () => {
 					{user ? (
 						<div className="dropdown dropdown-end">
 							<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-								<div className="w-10 rounded-full border-2 border-primary overflow-hidden">						
-									<img alt="User" src={user.photoURL}/>
+								<div className="w-10 rounded-full border-2 border-primary overflow-hidden">
+									<img alt="User" src={user.photoURL} />
 								</div>
 							</label>
 							<ul
 								tabIndex={0}
 								className="menu dropdown-content mt-3 p-4 shadow-lg bg-base-100 rounded-xl w-60 animate-slide-in"
 							>
-								
 								<li className="font-semibold text-lg">{user.displayName}</li>
-								
+
 								<li className="text-sm text-gray-500">{user.email}</li>
 								<li className="mt-2">
 									<button

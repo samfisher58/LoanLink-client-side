@@ -24,7 +24,9 @@ const HeroBanner = () => {
 							hidden steps, no confusing processes — just transparent options
 							tailored for real-life needs.
 						</p>
-						<Link className="btn btn-primary">Apply for Loans</Link>
+						<Link to="/all-loans" className="btn btn-primary">
+							Apply for Loans
+						</Link>
 					</div>
 				</div>
 			</div>

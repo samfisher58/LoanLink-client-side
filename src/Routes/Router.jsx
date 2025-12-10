@@ -9,40 +9,42 @@ import LoanDetails from "../Pages/AllLoans/LoanDetails";
 import LoanApplicationForm from "../Pages/AllLoans/LoanApplication/LoanApplicationForm";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import Contact from "../Pages/Contact/Contact";
+import PrivateRoutes from "./PrivateRoutes";
+import DashBoardLayout from "../Layouts/DashBoardLayout";
 
 export const router = createBrowserRouter([
-    // root layout
+	// root layout
 	{
 		path: '/',
 		Component: RootLayout,
 		children: [
 			{
 				index: true,
-				Component: Home
+				Component: Home,
 			},
 			{
 				path: 'all-loans',
-				Component: AllLoans
+				Component: AllLoans,
 			},
 			{
-				path: 'loan-details',
-				Component: LoanDetails
+				path: 'all-loans/:id',
+				Component: LoanDetails,
 			},
 			{
 				path: 'loan-application',
-				Component: LoanApplicationForm
+				Component: LoanApplicationForm,
 			},
 			{
 				path: 'about-us',
-				Component: AboutUs
+				Component: AboutUs,
 			},
 			{
 				path: 'contact',
-				Component: Contact
+				Component: Contact,
 			},
 		],
 	},
-    // authLayout
+	// authLayout
 	{
 		path: '/',
 		Component: AuthLayout,
@@ -57,8 +59,14 @@ export const router = createBrowserRouter([
 			},
 		],
 	},
-    // DashboardLayout
-    {
-
-    }
+	// DashboardLayout
+	{
+		path: '/dashBoard',
+		element: (
+			<PrivateRoutes>
+				<DashBoardLayout></DashBoardLayout>
+			</PrivateRoutes>
+		),
+		children: [{}],
+	},
 ]);
