@@ -1,16 +1,34 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Loading from '../../../Component/Loading/Loading';
 
 const LoanApplicationForm = () => {
-	const {register,handleSubmit } = useForm();
-    const navigate = useNavigate();
-	const {user} = useAuth();
 
-	const handleLoanApplicaiton = (data,e)=>{
-		e.preventDefault()
+	const {id} = useParams()	
+	const { register, handleSubmit,formState:{errors} } = useForm();
+	const axiosSecure = useAxiosSecure()
+	const navigate = useNavigate();
+	const { user } = useAuth();
+	const { data:loan=[], isPending} = useQuery({
+		queryKey:[id],
+		queryFn: async()=>{
+			const res = await axiosSecure.get(`/all-loans/${id}`);
+			return res.data;
+		}
+	})
+	
+	if(isPending){
+		return <Loading></Loading>
+	}
+
+
+	const handleLoanApplication = (data, e) => {
+		e.preventDefault();
 		console.log(data);
 
 		Swal.fire({
@@ -30,19 +48,23 @@ const LoanApplicationForm = () => {
 				});
 			}
 		});
-	}
+	};
 
-    return (
-			<div>
-				{/* loan applicaiton form */}
-				<form onSubmit={handleSubmit(handleLoanApplicaiton)}>
+	return (
+		<div>
+			{/* loan application form */}
+			<h4 className="text-2xl font-semibold my-5">
+				Submit your loan application
+			</h4>
+			<form onSubmit={handleSubmit(handleLoanApplication)}>
+				<div className=" grid grid-cols-1 md:grid-cols-2 items-center">
+
 					<fieldset className="card-body">
-						<h4 className="text-2xl font-semibold">Submit your loan application</h4>
 						{/* user email */}
 						<label className="label">User Email</label>
 						<input
 							type="email"
-							{...register('userEmail')}
+							{...register('email')}
 							defaultValue={user?.email}
 							className="input"
 							placeholder="User Email"
@@ -52,18 +74,16 @@ const LoanApplicationForm = () => {
 						<input
 							type="text"
 							{...register('loanTitle')}
-							// defaultValue={user?.email}
+							defaultValue={loan.title}
 							className="input"
-							placeholder="Loan Title"
 						/>
 						{/* interest rate */}
 						<label className="label">Interest rate</label>
 						<input
 							type="text"
 							{...register('interestRate')}
-							// defaultValue={user?.email}
+							defaultValue={loan.interestRate}
 							className="input"
-							placeholder="Interest rate"
 						/>
 						{/* First Name */}
 						<label className="label">First Name</label>
@@ -73,6 +93,9 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="First Name"
 						/>
+						{errors.firstName?.type === 'required' && (
+							<p className="text-red-500">First Name is required</p>
+						)}
 						{/* Last Name */}
 						<label className="label">Last Name</label>
 						<input
@@ -81,6 +104,9 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="Last Name"
 						/>
+						{errors.lastName?.type === 'required' && (
+							<p className="text-red-500">Last Name is required</p>
+						)}
 						{/* Contact number */}
 						<label className="label">Contact Number</label>
 						<input
@@ -89,6 +115,9 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="Contact Number"
 						/>
+						{errors.contact?.type === 'required' && (
+							<p className="text-red-500">Contact Number is required</p>
+						)}
 						{/* National ID / Passport Number */}
 						<label className="label">National ID / Passport Number</label>
 						<input
@@ -97,6 +126,12 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="NID / Passport"
 						/>
+						{errors.nid?.type === 'required' && (
+							<p className="text-red-500">NID is required</p>
+						)}
+					</fieldset>
+
+					<fieldset className="card-body">
 						<label className="label">Income Source</label>
 						<input
 							type="text"
@@ -104,6 +139,9 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="Income Source"
 						/>
+						{errors.incomeSource?.type === 'required' && (
+							<p className="text-red-500">Income Source is required</p>
+						)}
 						<label className="label">Monthly Income </label>
 						<input
 							type="text"
@@ -111,6 +149,9 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="Monthly Income"
 						/>
+						{errors.monthlyIncome?.type === 'required' && (
+							<p className="text-red-500">Monthly Income is required</p>
+						)}
 						<label className="label">Loan Amount </label>
 						<input
 							type="text"
@@ -118,6 +159,9 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="Loan Amount"
 						/>
+						{errors.loanAmount?.type === 'required' && (
+							<p className="text-red-500">Loan Amount is required</p>
+						)}
 						<label className="label">Reason for Loan </label>
 						<input
 							type="text"
@@ -125,20 +169,27 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="Reason for Loan"
 						/>
+						{errors.loanReason?.type === 'required' && (
+							<p className="text-red-500">Loan reason is required</p>
+						)}
 						<label className="label">Address</label>
 						<input
 							type="text"
-							{...register('Address', { required: true })}
+							{...register('address', { required: true })}
 							className="input"
-							placeholder="Reason for Loan"
+							placeholder="Address"
 						/>
+						{errors.address?.type === 'required' && (
+							<p className="text-red-500">Adress is required</p>
+						)}
 						<label className="label">Extra Notes</label>
 						<input
 							type="text"
 							{...register('notes')}
 							className="input"
-							placeholder="Reason for Loan"
+							placeholder="Notes"
 						/>
+						
 						<label className="label">Status</label>
 						<input
 							type="text"
@@ -147,15 +198,23 @@ const LoanApplicationForm = () => {
 							placeholder="Pending"
 							disabled
 						/>
+						{errors?.type === 'required' && (
+							<p className="text-red-500">is required</p>
+						)}
 					</fieldset>
-					<input className='btn btn-primary mb-3' type="submit" value="Submit loan" />
-				</form>
 
-				<button className="btn btn-secondary" onClick={() => navigate(-1)}>
+				</div>
+				<input
+					className="btn btn-primary my-2 ml-5 "
+					type="submit"
+					value="Submit loan"
+				/>
+				<button className="btn btn-secondary ml-2" onClick={() => navigate(-1)}>
 					Back to Loan Details
 				</button>
-			</div>
-		);
+			</form>
+		</div>
+	);
 };
 
 export default LoanApplicationForm;

@@ -1,11 +1,12 @@
 import React from 'react';
 import useAuth from '../../../Hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
+import Loading from '../../../Component/Loading/Loading';
 
 const SocialLogin = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { signInGoogle } = useAuth();
+    const { signInGoogle, loading } = useAuth();
 
 
     const handleGoogleSignIn=()=>{
@@ -18,6 +19,11 @@ const SocialLogin = () => {
             console.log(error);
         })
     }
+
+	if (loading) {
+		return <Loading></Loading>;
+	}
+
     return (
 			<div className="text-center pb-8">				
 				<button

@@ -2,20 +2,22 @@ import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '../../Component/Loading/Loading';
 
 const LoanDetails = () => {
     const navigate = useNavigate()
 	const {id} =useParams();
-	console.log(id);
 	const axiosSecure = useAxiosSecure();
-	const {data: loan=[]} = useQuery({
+	const {data: loan=[], isPending} = useQuery({
 		queryKey:['loan',id],
 		queryFn: async()=>{
 			const res = await axiosSecure.get(`/all-loans/${id}`);
 			return res.data;
 		}
 	})
-	console.log(loan);
+	if (isPending) {
+		return <Loading></Loading>;
+	}
 	
     return (
 			<div>
@@ -51,7 +53,10 @@ const LoanDetails = () => {
 
 						<div className="card-actions mt-3">
 							<div className="card-actions">
-								<Link to="/loan-application" className="btn btn-primary">
+								<Link
+									to={`/loan-application/${loan._id}`}
+									className="btn btn-primary"
+								>
 									Apply Now
 								</Link>
 								<button

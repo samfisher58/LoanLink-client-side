@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
 				Component: LoanDetails,
 			},
 			{
-				path: 'loan-application',
+				path: 'loan-application/:id',
 				Component: LoanApplicationForm,
 			},
 			{

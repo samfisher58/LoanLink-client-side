@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Link } from 'react-router';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import Loading from '../../Component/Loading/Loading';
 
 const AllLoans = () => {
 	const axiosSecure = useAxiosSecure();
 
-	const { data: loans = [] } = useQuery({
+	const { data: loans = [], isPending } = useQuery({
 		queryKey: ['allLoans'],
 		queryFn: async () => {
 			const res = await axiosSecure.get('/all-loans');
@@ -15,7 +16,9 @@ const AllLoans = () => {
 	});
 
 	console.log(loans);
-
+	if (isPending) {
+		return <Loading></Loading>;
+	}
 	return (
 		<div>
 			<h2 className="my-5 text-3xl font-semibold text-center">
