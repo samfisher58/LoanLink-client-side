@@ -11,6 +11,7 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import Contact from "../Pages/Contact/Contact";
 import PrivateRoutes from "./PrivateRoutes";
 import DashBoardLayout from "../Layouts/DashBoardLayout";
+import MyLoans from "../Pages/MyLoans/MyLoans";
 
 export const router = createBrowserRouter([
 	// root layout
@@ -67,6 +68,11 @@ export const router = createBrowserRouter([
 				<DashBoardLayout></DashBoardLayout>
 			</PrivateRoutes>
 		),
-		children: [{}],
+		children: [
+			{
+				path: 'myLoans',
+				Component: MyLoans
+			},
+		],
 	},
 ]);

@@ -8,29 +8,30 @@ import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Loading from '../../../Component/Loading/Loading';
 
 const LoanApplicationForm = () => {
-
-	const {id} = useParams()	
-	const { register, handleSubmit,formState:{errors} } = useForm();
-	const axiosSecure = useAxiosSecure()
+	const { id } = useParams();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+	const axiosSecure = useAxiosSecure();
 	const navigate = useNavigate();
 	const { user } = useAuth();
-	const { data:loan=[], isPending} = useQuery({
-		queryKey:[id],
-		queryFn: async()=>{
+
+	const { data: loan = [], isPending } = useQuery({
+		queryKey: [id],
+		queryFn: async () => {
 			const res = await axiosSecure.get(`/all-loans/${id}`);
 			return res.data;
-		}
-	})
-	
-	if(isPending){
-		return <Loading></Loading>
-	}
+		},
+	});
 
+	if (isPending) {
+		return <Loading></Loading>;
+	}
 
 	const handleLoanApplication = (data, e) => {
 		e.preventDefault();
-		console.log(data);
-
 		Swal.fire({
 			title: 'Before you proceed..',
 			text: "You'll be charged $10 for Loan application!",
@@ -41,6 +42,13 @@ const LoanApplicationForm = () => {
 			confirmButtonText: 'Yes, proceed!',
 		}).then(result => {
 			if (result.isConfirmed) {
+				axiosSecure.post('/loan-application', data).then(res => {
+					console.log('after saving data', res.data);
+					if (res.data.insertedId) {
+						navigate('/dashboard/myLoans');
+					}
+				});
+
 				Swal.fire({
 					title: 'Submitted!',
 					text: 'Please check Dashboard for Application status.',
@@ -58,7 +66,6 @@ const LoanApplicationForm = () => {
 			</h4>
 			<form onSubmit={handleSubmit(handleLoanApplication)}>
 				<div className=" grid grid-cols-1 md:grid-cols-2 items-center">
-
 					<fieldset className="card-body">
 						{/* user email */}
 						<label className="label">User Email</label>
@@ -189,20 +196,19 @@ const LoanApplicationForm = () => {
 							className="input"
 							placeholder="Notes"
 						/>
-						
+
 						<label className="label">Status</label>
 						<input
 							type="text"
 							defaultValue="Pending"
 							className="input"
-							placeholder="Pending"
+							{...register('loanStatus')}
 							disabled
 						/>
 						{errors?.type === 'required' && (
 							<p className="text-red-500">is required</p>
 						)}
 					</fieldset>
-
 				</div>
 				<input
 					className="btn btn-primary my-2 ml-5 "
