@@ -6,7 +6,7 @@ import Loading from '../../../Component/Loading/Loading';
 const SocialLogin = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { signInGoogle, loading } = useAuth();
+    const { signInGoogle, loading, setLoading } = useAuth();
 
 
     const handleGoogleSignIn=()=>{
@@ -17,12 +17,15 @@ const SocialLogin = () => {
         })
         .catch(error=>{
             console.log(error);
+			setLoading(false)
+			alert(error);
         })
     }
 
 	if (loading) {
 		return <Loading></Loading>;
 	}
+	
 
     return (
 			<div className="text-center pb-8">				

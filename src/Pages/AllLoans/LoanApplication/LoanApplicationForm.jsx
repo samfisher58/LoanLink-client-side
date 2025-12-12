@@ -29,6 +29,7 @@ const LoanApplicationForm = () => {
 	if (isPending) {
 		return <Loading></Loading>;
 	}
+	console.log(user);
 
 	const handleLoanApplication = (data, e) => {
 		e.preventDefault();

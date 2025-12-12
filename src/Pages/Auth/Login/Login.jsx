@@ -11,7 +11,7 @@ const Login = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const { signInUser, loading } = useAuth();
+	const { signInUser, loading, setLoading } = useAuth();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const handleLogin = data => {
@@ -23,6 +23,8 @@ const Login = () => {
 			})
 			.catch(error => {
 				console.log(error);
+				setLoading(false)
+				alert(error);
 			});
 	};
 
