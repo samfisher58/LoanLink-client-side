@@ -25,7 +25,7 @@ const HeroBanner = () => {
 							tailored for real-life needs.
 						</p>
 						<Link to="/all-loans" className="btn btn-primary">
-							Apply for Loans
+							Explore All Loans
 						</Link>
 					</div>
 				</div>

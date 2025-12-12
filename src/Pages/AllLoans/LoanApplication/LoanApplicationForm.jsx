@@ -32,28 +32,18 @@ const LoanApplicationForm = () => {
 
 	const handleLoanApplication = (data, e) => {
 		e.preventDefault();
-		Swal.fire({
-			title: 'Before you proceed..',
-			text: "You'll be charged $10 for Loan application!",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, proceed!',
-		}).then(result => {
-			if (result.isConfirmed) {
-				axiosSecure.post('/loan-application', data).then(res => {
-					console.log('after saving data', res.data);
-					if (res.data.insertedId) {
-						navigate('/dashboard/myLoans');
-					}
-				});
 
+		axiosSecure.post('/loan-application', data).then(res => {
+			console.log('after saving data', res.data);
+			if (res.data.insertedId) {
 				Swal.fire({
-					title: 'Submitted!',
-					text: 'Please check Dashboard for Application status.',
+					position: 'middle',
 					icon: 'success',
+					title: 'Your work has been saved',
+					showConfirmButton: false,
+					timer: 1500,
 				});
+				navigate('/dashboard/my-loans');
 			}
 		});
 	};

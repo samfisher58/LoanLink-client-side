@@ -1,5 +1,6 @@
 import React from 'react';
-import { CiDeliveryTruck } from 'react-icons/ci';
+import { CgProfile } from 'react-icons/cg';
+import { CiDeliveryTruck, CiMoneyCheck1 } from 'react-icons/ci';
 import { Link, NavLink, Outlet } from 'react-router';
 
 const DashBoardLayout = () => {
@@ -31,7 +32,9 @@ const DashBoardLayout = () => {
 									<path d="M14 10l2 2l-2 2"></path>
 								</svg>
 							</label>
-							<Link to='/' className="px-4 text-xl font-bold">LoanLink</Link>
+							<Link to="/" className="px-4 text-xl font-bold">
+								LoanLink
+							</Link>
 						</nav>
 						{/* Page content here */}
 						<Outlet></Outlet>
@@ -71,14 +74,14 @@ const DashBoardLayout = () => {
 								</li>
 
 								{/* List item */}
-								<li>
+								<li className='gap-2'>
 									{/* my loans */}
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="My loans"
-										to=""
+										to="/dashboard/my-loans"
 									>
-										<CiDeliveryTruck />
+										<CiMoneyCheck1 />
 										<span className="is-drawer-close:hidden">My Loans</span>
 									</NavLink>
 									{/* my profile */}
@@ -87,7 +90,7 @@ const DashBoardLayout = () => {
 										data-tip="My Profile"
 										to=""
 									>
-										{/* <CiDeliveryTruck /> */}
+										<CgProfile/>
 										<span className="is-drawer-close:hidden">My Profile</span>
 									</NavLink>
 									{/* Add loans(Manager) */}

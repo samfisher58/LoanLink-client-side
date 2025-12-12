@@ -70,8 +70,8 @@ export const router = createBrowserRouter([
 		),
 		children: [
 			{
-				path: 'myLoans',
-				Component: MyLoans
+				path: 'my-loans',
+				Component: MyLoans,
 			},
 		],
 	},
