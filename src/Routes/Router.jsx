@@ -12,6 +12,8 @@ import Contact from "../Pages/Contact/Contact";
 import PrivateRoutes from "./PrivateRoutes";
 import DashBoardLayout from "../Layouts/DashBoardLayout";
 import MyLoans from "../Pages/MyLoans/MyLoans";
+import PaymentSuccess from "../Pages/Home/DashBoard/Payment/PaymentSuccess";
+import PaymentCancel from "../Pages/Home/DashBoard/Payment/PaymentCancel";
 
 export const router = createBrowserRouter([
 	// root layout
@@ -73,6 +75,14 @@ export const router = createBrowserRouter([
 				path: 'my-loans',
 				Component: MyLoans,
 			},
+			{
+				path: 'payment-success',
+				Component: PaymentSuccess
+			},
+			{
+				path: 'payment-cancel',
+				Component: PaymentCancel
+			}
 		],
 	},
 ]);

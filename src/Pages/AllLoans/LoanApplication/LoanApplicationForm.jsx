@@ -35,12 +35,12 @@ const LoanApplicationForm = () => {
 		e.preventDefault();
 
 		axiosSecure.post('/loan-application', data).then(res => {
-			console.log('after saving data', res.data);
+			
 			if (res.data.insertedId) {
 				Swal.fire({
 					position: 'middle',
 					icon: 'success',
-					title: 'Your work has been saved',
+					title: 'Loan Application submitted',
 					showConfirmButton: false,
 					timer: 1500,
 				});
