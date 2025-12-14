@@ -29,7 +29,7 @@ const MyLoans = () => {
 	const handlePayment = async loanApplication => {
 		const paymentInfo = {
 			loanFee: loanApplication.loanFee,
-			loanId: loanApplication.loanId,
+			loanId: loanApplication._id,
 			email: loanApplication.email,
 			loanTitle: loanApplication.loanTitle,
 		};
