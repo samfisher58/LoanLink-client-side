@@ -33,7 +33,7 @@ const LoanApplicationForm = () => {
 
 	const handleLoanApplication = (data, e) => {
 		e.preventDefault();
-
+		data.loanDetailsId = loan._id;
 		axiosSecure.post('/loan-application', data).then(res => {
 			
 			if (res.data.insertedId) {
@@ -45,6 +45,7 @@ const LoanApplicationForm = () => {
 					timer: 1500,
 				});
 				navigate('/dashboard/my-loans');
+				
 			}
 		});
 	};
