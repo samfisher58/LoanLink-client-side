@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import Loading from '../../Component/Loading/Loading';
 import Swal from 'sweetalert2';
+import { FcViewDetails } from 'react-icons/fc';
 
 const MyLoans = () => {
 	const { user } = useAuth();
@@ -15,6 +16,7 @@ const MyLoans = () => {
 		refetch,
 	} = useQuery({
 		queryKey: ['loanApplications', user?.email],
+		enabled: !! user?.email,
 		queryFn: async () => {
 			const res = await axiosSecure.get(
 				`/loan-application?email=${user.email}`
@@ -27,14 +29,43 @@ const MyLoans = () => {
 	}
 
 	const handlePayment = async loanApplication => {
-		const paymentInfo = {
-			loanFee: loanApplication.loanFee,
-			loanId: loanApplication._id,
-			email: loanApplication.email,
-			loanTitle: loanApplication.loanTitle,
-		};
-		const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
-		window.location.assign(res.data.url);
+	
+		try {
+			const result = await Swal.fire({
+				title: 'Are you sure?',
+				text: "You will be charget $10 for ths!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, proceed!',
+			});
+
+			if (!result.isConfirmed) return;
+
+			const paymentInfo = {
+				loanFee: loanApplication.loanFee,
+				loanId: loanApplication._id,
+				loan_Id: loanApplication.loanId,
+				email: loanApplication.email,
+				loanTitle: loanApplication.loanTitle,
+			};
+
+			const res = await axiosSecure.post(
+				'/create-checkout-session',
+				paymentInfo
+			);
+
+			window.location.assign(res.data.url);
+		} catch (error) {
+			console.error(error);
+			Swal.fire({
+				icon: 'error',
+				title: 'Something went wrong!',
+				text: 'Please try again later',
+			});
+		}
+
 	};
 
 	const handleDelete = id => {
@@ -106,11 +137,24 @@ const MyLoans = () => {
 											)}
 										</div>
 
-										<button
-											onClick={() => handleDelete(loanApplication._id)}
-											className="btn hover:btn-warning"
-										>
-											<RiDeleteBin6Line />
+										{loanApplication.loanStatus == 'Pending' ? (
+											<button
+												onClick={() => handleDelete(loanApplication._id)}
+												className="btn hover:btn-warning"
+											>
+												<RiDeleteBin6Line />
+											</button>
+										) : (
+											<button disabled
+												onClick={() => handleDelete(loanApplication._id)}
+												className="btn hover:btn-warning"
+											>
+												<RiDeleteBin6Line />
+											</button>
+										)}
+
+										<button className="btn">
+											<FcViewDetails />
 										</button>
 									</td>
 								</tr>

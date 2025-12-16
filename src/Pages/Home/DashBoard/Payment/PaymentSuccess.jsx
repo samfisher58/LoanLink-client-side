@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 // import { useQuery } from '@tanstack/react-query';
 
 const PaymentSuccess = () => {
 	const [searchParams] = useSearchParams();
 	const sessionId = searchParams.get("session_id");
+	const [paymentInfo, setPaymentInfo] = useState([])
 	const axiosSecure = useAxiosSecure();
+	
 
 	// const { data } = useQuery({
 	// 	queryKey: ['payment-success', sessionId],
@@ -24,18 +26,19 @@ const PaymentSuccess = () => {
 				axiosSecure
 					.patch(`/verified-payment-success?session_id=${sessionId}`)
 					.then(res => {
-						console.log(res.data);
+						setPaymentInfo(res.data)
 					});
 			}
 		}, [sessionId, axiosSecure]);
 
 	
 	return (
-		<div>
+		<div className='p-5'>
+			<p className='text-4xl'>Payment Successful!</p>
 			<p>
-				payment successful <br />
-				<span>{sessionId}</span>
+				<span className='font-bold'>Transaction id</span>: {paymentInfo.transactionId}
 			</p>
+			<Link to='/dashboard/my-loans' className='btn btn-primary'>My Loans</Link>
 		</div>
 	);
 };

@@ -88,7 +88,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="My Profile"
-										to=""
+										to="/dashBoard/profile"
 									>
 										<CgProfile/>
 										<span className="is-drawer-close:hidden">My Profile</span>

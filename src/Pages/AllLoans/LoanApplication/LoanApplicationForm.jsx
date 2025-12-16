@@ -38,7 +38,7 @@ const LoanApplicationForm = () => {
 			
 			if (res.data.insertedId) {
 				Swal.fire({
-					position: 'middle',
+					position: 'center',
 					icon: 'success',
 					title: 'Loan Application submitted',
 					showConfirmButton: false,
