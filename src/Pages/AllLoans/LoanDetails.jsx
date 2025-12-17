@@ -7,6 +7,7 @@ import Loading from '../../Component/Loading/Loading';
 const LoanDetails = () => {
     const navigate = useNavigate()
 	const {id} =useParams();
+	console.log(id);
 	const axiosSecure = useAxiosSecure();
 	const {data: loan=[], isPending} = useQuery({
 		queryKey:['loan',id],

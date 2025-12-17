@@ -30,9 +30,14 @@ const MyLoans = () => {
 		},
 	});
 
+	const openLoanModal = loanApplication => {
+		setLoanDetailsId(loanApplication.loanDetailsId);
+		loanModalRef.current.showModal();
+	};
 
 	const { data } = useQuery({
 		queryKey: ['loan-Details', loanDetailsId],
+		enabled: !!loanDetailsId,
 		queryFn: async () => {
 			const res = await axiosSecure.get(`/all-loans/${loanDetailsId}`);
 			return res.data;
@@ -47,12 +52,10 @@ const MyLoans = () => {
 
 	
 
-	const openLoanModal = (loanApplication) => {
-		setLoanDetailsId(loanApplication.loanDetailsId);
-		loanModalRef.current.showModal();
-
-
-	};
+	// const openLoanModal = (loanApplication) => {
+	// 	setLoanDetailsId(loanApplication.loanDetailsId);
+	// 	loanModalRef.current.showModal();
+	// };
 
 	const handlePayment = async loanApplication => {
 		try {

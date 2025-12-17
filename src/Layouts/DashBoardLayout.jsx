@@ -74,7 +74,7 @@ const DashBoardLayout = () => {
 								</li>
 
 								{/* List item */}
-								<li className='gap-2'>
+								<li className="gap-2">
 									{/* my loans */}
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -90,7 +90,7 @@ const DashBoardLayout = () => {
 										data-tip="My Profile"
 										to="/dashBoard/profile"
 									>
-										<CgProfile/>
+										<CgProfile />
 										<span className="is-drawer-close:hidden">My Profile</span>
 									</NavLink>
 									{/* Add loans(Manager) */}
@@ -137,7 +137,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="My Profile"
-										to=""
+										to="dashboard/manager-profile"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">My Profile</span>
@@ -146,7 +146,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="Manage Users"
-										to=""
+										to="/dashboard/manage-users"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">Manage Users</span>
@@ -155,7 +155,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="All Loans"
-										to=""
+										to="/dashboard/all-loans-admin"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">All Loans</span>
@@ -164,7 +164,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="Loan Application"
-										to=""
+										to="/dashboard/loan-application-admin"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">

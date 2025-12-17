@@ -15,6 +15,9 @@ import MyLoans from "../Pages/MyLoans/MyLoans";
 import PaymentSuccess from "../Pages/Home/DashBoard/Payment/PaymentSuccess";
 import PaymentCancel from "../Pages/Home/DashBoard/Payment/PaymentCancel";
 import Profile from "../Pages/Home/DashBoard/Profile/Profile";
+import ManageUsers from "../Pages/Home/DashBoard/Admin/ManageUsers";
+import AllLoansAdmin from "../Pages/Home/DashBoard/Admin/AllLoansAdmin";
+import LoanApplicationAdmin from "../Pages/Home/DashBoard/Admin/LoanApplicationAdmin";
 
 export const router = createBrowserRouter([
 	// root layout
@@ -74,20 +77,32 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: 'my-loans',
-				Component: MyLoans,
+				Component: MyLoans
 			},
 			{
 				path: 'profile',
-				Component: Profile,
+				Component: Profile
 			},
 			{
 				path: 'payment-success',
-				Component: PaymentSuccess,
+				Component: PaymentSuccess
 			},
 			{
 				path: 'payment-cancel',
-				Component: PaymentCancel,
+				Component: PaymentCancel
 			},
+			// {
+			// 	path: 'manage-users',
+			// 	Component: ManageUsers
+			// },
+			// {
+			// 	path: 'all-loans-admin',
+			// 	Component: AllLoansAdmin
+			// },
+			// {
+			// 	path: 'loan-application-admin',
+			// 	Component: LoanApplicationAdmin
+			// },
 		],
 	},
 ]);
