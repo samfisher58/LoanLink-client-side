@@ -97,7 +97,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="Add loans"
-										to=""
+										to="/dashboard/add-loan"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">Add loans</span>
@@ -106,7 +106,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="Manage Loans"
-										to=""
+										to="/dashboard/manage-loans"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">Manage Loans</span>
@@ -115,7 +115,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="Pending Application"
-										to=""
+										to="/dashboard/pending-loans"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">
@@ -126,7 +126,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="Approved Application"
-										to=""
+										to="/dashboard/approved-loans"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">
@@ -137,7 +137,7 @@ const DashBoardLayout = () => {
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="My Profile"
-										to="dashboard/manager-profile"
+										to="/dashboard/manager-profile"
 									>
 										{/* <CiDeliveryTruck /> */}
 										<span className="is-drawer-close:hidden">My Profile</span>

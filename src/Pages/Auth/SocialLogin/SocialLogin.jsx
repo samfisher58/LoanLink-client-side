@@ -2,18 +2,34 @@ import React from 'react';
 import useAuth from '../../../Hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
 import Loading from '../../../Component/Loading/Loading';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const SocialLogin = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { signInGoogle, loading, setLoading } = useAuth();
-
+	const axiosSecure = useAxiosSecure()
+	
 
     const handleGoogleSignIn=()=>{
         signInGoogle()
-        .then(result=>{
-            console.log(result.user);
+        .then((result)=>{           
             navigate(location.state || '/');
+			const newUser = {
+				displayName: result.user.displayName,
+				email: result.user.email,
+				photoURL: result.user.photoURL,
+			};
+
+			axiosSecure.post('/users', newUser)
+			.then(res=>{
+				console.log("data has been stored in database", res.data);
+				if (res.data.insertedId) {
+					console.log('data stored in database');
+					 navigate(location.state || '/');
+				}
+			})
+
         })
         .catch(error=>{
             console.log(error);

@@ -61,10 +61,9 @@ const Register = () => {
 						});
 				});
 			})
-			.catch(error => {
-				console.log(error);
-				setLoading(false)
-				
+			.catch((error) => {
+				setLoading(false);
+				alert(error)
 			});
 	};
 

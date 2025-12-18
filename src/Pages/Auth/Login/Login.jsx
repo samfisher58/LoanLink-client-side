@@ -15,10 +15,8 @@ const Login = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const handleLogin = data => {
-		console.log('form data:', data);
 		signInUser(data.email, data.password)
-			.then(result => {
-				console.log(result.user);
+			.then(() => {
 				navigate(location?.state || '/');
 			})
 			.catch(error => {
