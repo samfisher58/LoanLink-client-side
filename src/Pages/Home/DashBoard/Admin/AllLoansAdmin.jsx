@@ -8,7 +8,7 @@ const AllLoansAdmin = () => {
     const {data: allLoansAdmin=[], isPending} = useQuery({
         queryKey:['allLoanAdmin'],
         queryFn: async()=>{
-            const res = await axiosSecure.get("/all-loans");
+            const res = await axiosSecure.get('/all-loans-admin');
             return res.data
         }
     })
@@ -62,6 +62,10 @@ const AllLoansAdmin = () => {
 								) : (
 									<span>Hidden</span>
 								)}
+							</td>
+							<td className="flex gap-2">
+								<button className="btn btn-secondary">Show</button>
+								<button className="btn btn-warning">Hide</button>
 							</td>
 						</tr>
 					))}
