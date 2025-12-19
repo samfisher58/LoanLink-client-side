@@ -1,6 +1,11 @@
 import React from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { CiDeliveryTruck, CiMoneyCheck1 } from 'react-icons/ci';
+import { FaUserTie } from 'react-icons/fa';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import { MdDensitySmall, MdPendingActions, MdVerified } from 'react-icons/md';
+import { SiReacthookform } from 'react-icons/si';
+import { VscUnverified } from 'react-icons/vsc';
 import { Link, NavLink, Outlet } from 'react-router';
 
 const DashBoardLayout = () => {
@@ -99,7 +104,7 @@ const DashBoardLayout = () => {
 										data-tip="Add loans"
 										to="/dashboard/add-loan"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<IoIosAddCircleOutline />
 										<span className="is-drawer-close:hidden">Add loans</span>
 									</NavLink>
 									{/* Manage Loans(manager)  */}
@@ -108,7 +113,7 @@ const DashBoardLayout = () => {
 										data-tip="Manage Loans"
 										to="/dashboard/manage-loans"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<FaUserTie />
 										<span className="is-drawer-close:hidden">Manage Loans</span>
 									</NavLink>
 									{/* Pending Application (manager) */}
@@ -117,7 +122,7 @@ const DashBoardLayout = () => {
 										data-tip="Pending Application"
 										to="/dashboard/pending-loans"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<MdPendingActions />
 										<span className="is-drawer-close:hidden">
 											Pending Application
 										</span>
@@ -128,7 +133,7 @@ const DashBoardLayout = () => {
 										data-tip="Approved Application"
 										to="/dashboard/approved-loans"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<MdVerified />
 										<span className="is-drawer-close:hidden">
 											Approved Application
 										</span>
@@ -139,16 +144,16 @@ const DashBoardLayout = () => {
 										data-tip="My Profile"
 										to="/dashboard/manager-profile"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<CgProfile />
 										<span className="is-drawer-close:hidden">My Profile</span>
 									</NavLink>
-									{/* Manage Users(admit) */}
+									{/* Manage Users(admin) */}
 									<NavLink
 										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 										data-tip="Manage Users"
 										to="/dashboard/manage-users"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<VscUnverified />
 										<span className="is-drawer-close:hidden">Manage Users</span>
 									</NavLink>
 									{/* all loans(Admin) */}
@@ -157,7 +162,7 @@ const DashBoardLayout = () => {
 										data-tip="All Loans"
 										to="/dashboard/all-loans-admin"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<MdDensitySmall />
 										<span className="is-drawer-close:hidden">All Loans</span>
 									</NavLink>
 									{/* Loan Application(admit) */}
@@ -166,7 +171,7 @@ const DashBoardLayout = () => {
 										data-tip="Loan Application"
 										to="/dashboard/loan-application-admin"
 									>
-										{/* <CiDeliveryTruck /> */}
+										<SiReacthookform />
 										<span className="is-drawer-close:hidden">
 											Loan Application
 										</span>
