@@ -23,6 +23,9 @@ import ManageLoans from "../Pages/Home/DashBoard/Manager/ManageLoans";
 import PendingLoans from "../Pages/Home/DashBoard/Manager/PendingLoans";
 import ApprovedLoans from "../Pages/Home/DashBoard/Manager/ApprovedLoans";
 import ManagerProfile from "../Pages/Home/DashBoard/Manager/ManagerProfile";
+import LoanUpdate from "../Pages/Home/DashBoard/Manager/LoanUpdate";
+
+
 
 export const router = createBrowserRouter([
 	// root layout
@@ -115,6 +118,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'manage-loans',
 				Component: ManageLoans,
+			},
+			{
+				path: 'update-loans/:id',
+				Component: LoanUpdate
 			},
 			{
 				path: 'pending-loans',

@@ -17,10 +17,12 @@ const AllLoansAdmin = () => {
         return <Loading></Loading>
     }
     
-    console.log(allLoansAdmin);
+    
 	return (
 		<div className="overflow-x-auto">
-			<h1 className="text-3xl m-5 text-center">All Loans</h1>
+			<h1 className="text-3xl m-5 text-center">
+				All Loans({allLoansAdmin.length})
+			</h1>
 			<table className="table">
 				{/* head */}
 				<thead>

@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import Loading from '../../../../Component/Loading/Loading';
 import useAuth from '../../../../Hooks/useAuth';
+import { useNavigate } from 'react-router';
 
 const AddLoans = () => {
     const {user} = useAuth()
 	const axiosSecure = useAxiosSecure();
     const [loading, setLoading] = useState();
+	const navigate = useNavigate()
 	const {
 		register,
 		handleSubmit,
@@ -40,6 +42,7 @@ const AddLoans = () => {
                 console.log('data inserted to database', res.data);
 				alert('data inserted');
                 setLoading(false);
+				navigate('/dashboard/manage-loans');
             })			
 		});
 
