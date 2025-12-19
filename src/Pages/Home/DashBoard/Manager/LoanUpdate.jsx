@@ -1,20 +1,3 @@
-// import React from 'react';
-// import { useParams } from 'react-router';
-
-
-// const LoanUpdate = () => {
-//     const {id} = useParams();
-//     console.log(id);
-   
-//     return (
-//         <div>
-//             This is from loan update({id})
-//         </div>
-//     );
-// };
-
-// export default LoanUpdate;
-
 
 import React, { useEffect } from 'react';
 // import { useParams, useNavigate } from 'react-router-dom';
@@ -72,7 +55,7 @@ const LoanUpdate = () => {
 			text: 'Loan updated successfully',
 		});
 
-		navigate('/dashboard/manage-loans');
+		navigate(-1)
 	};
 
 	if (isPending) return <Loading />;
@@ -160,7 +143,7 @@ const LoanUpdate = () => {
 
 					<button
 						type="button"
-						onClick={() => navigate('/dashboard/manage-loans')}
+						onClick={() => navigate(-1)}
 						className="btn btn-outline"
 					>
 						Cancel

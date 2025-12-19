@@ -2,22 +2,52 @@ import React from 'react';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../../Component/Loading/Loading';
+import { BiShow, BiSolidHide } from 'react-icons/bi';
+import { MdEdit, MdOutlineDeleteOutline } from 'react-icons/md';
+import { AiFillDelete } from 'react-icons/ai';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const AllLoansAdmin = () => {
-    const axiosSecure = useAxiosSecure()
-    const {data: allLoansAdmin=[], isPending} = useQuery({
-        queryKey:['allLoanAdmin'],
-        queryFn: async()=>{
-            const res = await axiosSecure.get('/all-loans-admin');
-            return res.data
-        }
-    })
-    
-    if(isPending){
-        return <Loading></Loading>
-    }
-    
-    
+	const axiosSecure = useAxiosSecure();
+	const {
+		data: allLoansAdmin = [],
+		isPending,
+		refetch,
+	} = useQuery({
+		queryKey: ['allLoanAdmin'],
+		queryFn: async () => {
+			const res = await axiosSecure.get('/all-loans-admin');
+			return res.data;
+		},
+	});
+
+	if (isPending) {
+		return <Loading></Loading>;
+	}
+
+	const handleDelete = loan => {
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!',
+		}).then(async result => {
+			if (result.isConfirmed) {
+				await axiosSecure.delete(`/all-loans/${loan._id}`);
+				refetch();
+				Swal.fire({
+					title: 'Deleted!',
+					text: 'Your file has been deleted.',
+					icon: 'success',
+				});
+			}
+		});
+	};
+
 	return (
 		<div className="overflow-x-auto">
 			<h1 className="text-3xl m-5 text-center">
@@ -44,14 +74,14 @@ const AllLoansAdmin = () => {
 
 							<td>
 								<div className="flex items-center gap-3">
-									<div className="avatar">
+									{/* <div className="avatar">
 										<div className="mask mask-squircle h-12 w-12">
 											<img
 												src={loan.images}
 												alt="Avatar Tailwind CSS Component"
 											/>
 										</div>
-									</div>
+									</div> */}
 								</div>
 							</td>
 							<td>{loan.title}</td>
@@ -65,9 +95,30 @@ const AllLoansAdmin = () => {
 									<span>Hidden</span>
 								)}
 							</td>
-							<td className="flex gap-2">
-								<button className="btn btn-secondary">Show</button>
-								<button className="btn btn-warning">Hide</button>
+							<td className="flex gap-2 items-center">
+								<Link
+									to={`/dashboard/update-loans/${loan._id}`}
+									className="btn btn-primary"
+								>
+									<MdEdit />
+								</Link>
+
+								<button
+									onClick={() => handleDelete(loan)}
+									className="btn btn-error"
+								>
+									<AiFillDelete />
+								</button>
+
+								{loan.showOnHome === true ? (
+									<button className="btn btn-warning">
+										<BiSolidHide />
+									</button>
+								) : (
+									<button className="btn btn-secondary">
+										<BiShow />
+									</button>
+								)}
 							</td>
 						</tr>
 					))}

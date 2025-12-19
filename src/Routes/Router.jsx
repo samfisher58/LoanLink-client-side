@@ -24,6 +24,8 @@ import PendingLoans from "../Pages/Home/DashBoard/Manager/PendingLoans";
 import ApprovedLoans from "../Pages/Home/DashBoard/Manager/ApprovedLoans";
 import ManagerProfile from "../Pages/Home/DashBoard/Manager/ManagerProfile";
 import LoanUpdate from "../Pages/Home/DashBoard/Manager/LoanUpdate";
+import Loading from "../Component/Loading/Loading";
+import ManageUsersRole from "../Pages/Home/DashBoard/Admin/ManageUsersRole";
 
 
 
@@ -32,6 +34,7 @@ export const router = createBrowserRouter([
 	{
 		path: '/',
 		Component: RootLayout,
+		hydrateFallbackElement:<Loading></Loading>,
 		children: [
 			{
 				index: true,
@@ -82,6 +85,7 @@ export const router = createBrowserRouter([
 				<DashBoardLayout></DashBoardLayout>
 			</PrivateRoutes>
 		),
+		hydrateFallbackElement: <Loading></Loading>,
 		children: [
 			{
 				path: 'my-loans',
@@ -102,6 +106,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'manage-users',
 				Component: ManageUsers,
+			},
+			{
+				path: 'manage-user-role/:id',
+				Component: ManageUsersRole,
 			},
 			{
 				path: 'all-loans-admin',

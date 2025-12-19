@@ -39,7 +39,7 @@ const PendingLoans = () => {
 										<div>{loanApplication.email}</div>
 									</td>
 									<td>{loanApplication.loanAmount}</td>
-									<td>{loanApplication.createdAt}</td>
+									<td>{new Date(loanApplication.createdAt).toLocaleString()}</td>
 									<td className="flex gap-2">
 										<button className="btn btn-primary flex-1">Approved</button>
 										<button className="btn btn-warning flex-1">Reject</button>
