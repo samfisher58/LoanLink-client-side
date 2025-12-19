@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
@@ -8,8 +8,10 @@ import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import Loading from '../../../../Component/Loading/Loading';
 import { useNavigate, useParams } from 'react-router';
+import axios from 'axios';
 
 const LoanUpdate = () => {
+    const[loading, setLoading] =useState(false)
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const axiosSecure = useAxiosSecure();
@@ -42,9 +44,31 @@ const LoanUpdate = () => {
 
 	// 🔹 Submit update
 	const onSubmit = async data => {
+        setLoading(true)
+		let imageUrl = loan.images; // keep old image by default
+
+		// ✅ If user selected a new image
+		if (data.images && data.images.length > 0) {
+			const formData = new FormData();
+			formData.append('image', data.images[0]);
+
+			const imageBB_API_URL = `https://api.imgbb.com/1/upload?key=${
+				import.meta.env.VITE_image_host_Key
+			}`;
+
+			const imgRes = await axios.post(imageBB_API_URL, formData);
+			imageUrl = imgRes.data.data.url;
+		}
+
 		const updatedLoan = {
-			...data,
+			title: data.title,
+			description: data.description,
+			interestRate: data.interestRate,
+			category: data.category,
+			maxLimit: data.maxLimit,
+			emiPlans: data.emiPlans,
 			showOnHome: data.showOnHome === 'true',
+			images: imageUrl, // ✅ old OR new
 		};
 
 		await axiosSecure.patch(`/all-loans/${id}`, updatedLoan);
@@ -55,10 +79,15 @@ const LoanUpdate = () => {
 			text: 'Loan updated successfully',
 		});
 
-		navigate(-1)
+        if(isPending){
+            return <Loading></Loading>
+        }
+        setLoading(false);
+		navigate(-1);
 	};
 
-	if (isPending) return <Loading />;
+
+	if (isPending|| loading) return <Loading />;
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
@@ -69,6 +98,18 @@ const LoanUpdate = () => {
 				<h2 className="text-2xl font-bold text-center mb-6">Update Loan</h2>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					{/* current image */}
+					{loan?.images && (
+						<div className="md:col-span-2 mb-4">
+							<label className="label">Current Image</label>
+							<img
+								src={loan.images}
+								alt="Current loan"
+								className="w-96 h-52 object-cover rounded"
+							/>
+						</div>
+					)}
+
 					{/* Title */}
 					<div>
 						<label className="label">Loan Title</label>
@@ -124,6 +165,16 @@ const LoanUpdate = () => {
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
+					</div>
+					{/* image */}
+					<div className="md:col-span-2">
+						<label className="label">Upload New Image</label>
+						<input
+							type="file"
+							accept="image/*"
+							{...register('images')}
+							className="file-input file-input-bordered w-full"
+						/>
 					</div>
 
 					{/* Description */}

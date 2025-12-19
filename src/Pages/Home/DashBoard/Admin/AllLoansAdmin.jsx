@@ -26,6 +26,7 @@ const AllLoansAdmin = () => {
 		return <Loading></Loading>;
 	}
 
+	
 	const handleDelete = loan => {
 		Swal.fire({
 			title: 'Are you sure?',
@@ -47,6 +48,36 @@ const AllLoansAdmin = () => {
 			}
 		});
 	};
+
+	const toggleShowOnHome = loan => {
+		const newValue = !loan.showOnHome;
+
+		Swal.fire({
+			title: 'Are you sure?',
+			text: `This loan will be ${newValue ? 'shown on' : 'hidden from'} Home`,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, proceed!',
+		}).then(async result => {
+			if (result.isConfirmed) {
+				const res = await axiosSecure.patch(`/all-loans/${loan._id}`, {
+					showOnHome: newValue,
+				});
+
+				if (res.data.modifiedCount) {
+					refetch();
+					Swal.fire({
+						icon: 'success',
+						title: 'Updated!',
+						text: `Loan is now ${newValue ? 'visible' : 'hidden'} on Home`,
+					});
+				}
+			}
+		});
+	};
+
 
 	return (
 		<div className="overflow-x-auto">
@@ -110,12 +141,20 @@ const AllLoansAdmin = () => {
 									<AiFillDelete />
 								</button>
 
-								{loan.showOnHome === true ? (
-									<button className="btn btn-warning">
+								{loan.showOnHome ? (
+									<button
+										onClick={() => toggleShowOnHome(loan)}
+										className="btn btn-warning"
+										title="Hide from Home"
+									>
 										<BiSolidHide />
 									</button>
 								) : (
-									<button className="btn btn-secondary">
+									<button
+										onClick={() => toggleShowOnHome(loan)}
+										className="btn btn-secondary"
+										title="Show on Home"
+									>
 										<BiShow />
 									</button>
 								)}
