@@ -8,7 +8,6 @@ import AboutLoanLink from '../AboutLoanLink/AboutLoanLink';
 const Home = () => {
     return (
         <div>
-            This is from home
             <HeroBanner></HeroBanner>
             <AvailableLoans></AvailableLoans>
             <HowItWorks></HowItWorks>
