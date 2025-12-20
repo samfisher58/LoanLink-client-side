@@ -105,14 +105,14 @@ const AllLoansAdmin = () => {
 
 							<td>
 								<div className="flex items-center gap-3">
-									{/* <div className="avatar">
+									<div className="avatar">
 										<div className="mask mask-squircle h-12 w-12">
 											<img
 												src={loan.images}
 												alt="Avatar Tailwind CSS Component"
 											/>
 										</div>
-									</div> */}
+									</div>
 								</div>
 							</td>
 							<td>{loan.title}</td>

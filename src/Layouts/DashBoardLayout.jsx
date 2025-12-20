@@ -7,8 +7,10 @@ import { MdDensitySmall, MdPendingActions, MdVerified } from 'react-icons/md';
 import { SiReacthookform } from 'react-icons/si';
 import { VscUnverified } from 'react-icons/vsc';
 import { Link, NavLink, Outlet } from 'react-router';
+import useRole from '../Hooks/useRole';
 
 const DashBoardLayout = () => {
+	const {role} = useRole();
     return (
 			<div>
 				<div className="drawer lg:drawer-open">
@@ -80,102 +82,126 @@ const DashBoardLayout = () => {
 
 								{/* List item */}
 								<li className="gap-2">
-									{/* my loans */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="My loans"
-										to="/dashboard/my-loans"
-									>
-										<CiMoneyCheck1 />
-										<span className="is-drawer-close:hidden">My Loans</span>
-									</NavLink>
-									{/* my profile */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="My Profile"
-										to="/dashBoard/profile"
-									>
-										<CgProfile />
-										<span className="is-drawer-close:hidden">My Profile</span>
-									</NavLink>
-									{/* Add loans(Manager) */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="Add loans"
-										to="/dashboard/add-loan"
-									>
-										<IoIosAddCircleOutline />
-										<span className="is-drawer-close:hidden">Add loans</span>
-									</NavLink>
-									{/* Manage Loans(manager)  */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="Manage Loans"
-										to="/dashboard/manage-loans"
-									>
-										<FaUserTie />
-										<span className="is-drawer-close:hidden">Manage Loans</span>
-									</NavLink>
-									{/* Pending Application (manager) */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="Pending Application"
-										to="/dashboard/pending-loans"
-									>
-										<MdPendingActions />
-										<span className="is-drawer-close:hidden">
-											Pending Application
-										</span>
-									</NavLink>
-									{/* Approved application(manager) */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="Approved Application"
-										to="/dashboard/approved-loans"
-									>
-										<MdVerified />
-										<span className="is-drawer-close:hidden">
-											Approved Application
-										</span>
-									</NavLink>
-									{/* my profile(Manager) */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="My Profile"
-										to="/dashboard/manager-profile"
-									>
-										<CgProfile />
-										<span className="is-drawer-close:hidden">My Profile</span>
-									</NavLink>
-									{/* Manage Users(admin) */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="Manage Users"
-										to="/dashboard/manage-users"
-									>
-										<VscUnverified />
-										<span className="is-drawer-close:hidden">Manage Users</span>
-									</NavLink>
-									{/* all loans(Admin) */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="All Loans"
-										to="/dashboard/all-loans-admin"
-									>
-										<MdDensitySmall />
-										<span className="is-drawer-close:hidden">All Loans</span>
-									</NavLink>
-									{/* Loan Application(admit) */}
-									<NavLink
-										className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-										data-tip="Loan Application"
-										to="/dashboard/loan-application-admin"
-									>
-										<SiReacthookform />
-										<span className="is-drawer-close:hidden">
-											Loan Application
-										</span>
-									</NavLink>
+									
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="My loans"
+												to="/dashboard/my-loans"
+											>
+												<CiMoneyCheck1 />
+												<span className="is-drawer-close:hidden">My Loans</span>
+											</NavLink>
+											{/* my profile */}
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="My Profile"
+												to="/dashBoard/profile"
+											>
+												<CgProfile />
+												<span className="is-drawer-close:hidden">
+													My Profile
+												</span>
+											</NavLink>
+										
+
+									{role === 'Manager' && (
+										<>
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="Add loans"
+												to="/dashboard/add-loan"
+											>
+												<IoIosAddCircleOutline />
+												<span className="is-drawer-close:hidden">
+													Add loans
+												</span>
+											</NavLink>
+											{/* Manage Loans(manager)  */}
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="Manage Loans"
+												to="/dashboard/manage-loans"
+											>
+												<FaUserTie />
+												<span className="is-drawer-close:hidden">
+													Manage Loans
+												</span>
+											</NavLink>
+											{/* Pending Application (manager) */}
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="Pending Application"
+												to="/dashboard/pending-loans"
+											>
+												<MdPendingActions />
+												<span className="is-drawer-close:hidden">
+													Pending Application
+												</span>
+											</NavLink>
+											{/* Approved application(manager) */}
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="Approved Application"
+												to="/dashboard/approved-loans"
+											>
+												<MdVerified />
+												<span className="is-drawer-close:hidden">
+													Approved Application
+												</span>
+											</NavLink>
+											{/* my profile(Manager) */}
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="My Profile"
+												to="/dashboard/manager-profile"
+											>
+												<CgProfile />
+												<span className="is-drawer-close:hidden">
+													My Profile
+												</span>
+											</NavLink>
+										</>
+									)}
+
+									
+									{role === 'Admin' && (
+										<>
+											{/* Manage Users(admin) */}
+
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="Manage Users"
+												to="/dashboard/manage-users"
+											>
+												<VscUnverified />
+												<span className="is-drawer-close:hidden">
+													Manage Users
+												</span>
+											</NavLink>
+											{/* all loans(Admin) */}
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="All Loans"
+												to="/dashboard/all-loans-admin"
+											>
+												<MdDensitySmall />
+												<span className="is-drawer-close:hidden">
+													All Loans
+												</span>
+											</NavLink>
+											{/* Loan Application(admin) */}
+											<NavLink
+												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+												data-tip="Loan Application"
+												to="/dashboard/loan-application-admin"
+											>
+												<SiReacthookform />
+												<span className="is-drawer-close:hidden">
+													Loan Application
+												</span>
+											</NavLink>
+										</>
+									)}
 								</li>
 							</ul>
 						</div>

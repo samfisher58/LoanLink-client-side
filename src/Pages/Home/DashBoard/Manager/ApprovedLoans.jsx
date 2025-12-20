@@ -17,7 +17,7 @@ const ApprovedLoans = () => {
         console.log(approvedApps);
     return (
 			<div>
-				<h1 className="text-3xl m-5 text-center">Pending Loan Application</h1>
+				<h1 className="text-3xl m-5 text-center">Approved Loan Application</h1>
 				<div className="overflow-x-auto">
 					<table className="table">
 						{/* head */}

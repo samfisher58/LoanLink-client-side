@@ -26,6 +26,7 @@ import ManagerProfile from "../Pages/Home/DashBoard/Manager/ManagerProfile";
 import LoanUpdate from "../Pages/Home/DashBoard/Manager/LoanUpdate";
 import Loading from "../Component/Loading/Loading";
 import ManageUsersRole from "../Pages/Home/DashBoard/Admin/ManageUsersRole";
+import AdminRoute from "./AdminRoute";
 
 
 
@@ -105,19 +106,21 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'manage-users',
-				Component: ManageUsers,
+				element:<AdminRoute> <ManageUsers></ManageUsers> </AdminRoute>
 			},
 			{
 				path: 'manage-user-role/:id',
-				Component: ManageUsersRole,
+				element: <AdminRoute> <ManageUsersRole></ManageUsersRole> </AdminRoute>
 			},
 			{
 				path: 'all-loans-admin',
-				Component: AllLoansAdmin,
+				element:<AdminRoute><AllLoansAdmin></AllLoansAdmin></AdminRoute>
 			},
 			{
 				path: 'loan-application-admin',
-				Component: LoanApplicationAdmin,
+				element: <AdminRoute>
+					<LoanApplicationAdmin></LoanApplicationAdmin>
+				</AdminRoute>
 			},
 			{
 				path: 'add-loan',

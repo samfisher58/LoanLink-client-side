@@ -18,7 +18,7 @@ const LoanUpdate = () => {
 
 	const { register, handleSubmit, reset } = useForm();
 
-	// 🔹 Fetch single loan
+	
 	const { data: loan, isPending } = useQuery({
 		queryKey: ['single-loan', id],
 		queryFn: async () => {
@@ -27,7 +27,7 @@ const LoanUpdate = () => {
 		},
 	});
 
-	// 🔹 Pre-fill form when loan data arrives
+	
 	useEffect(() => {
 		if (loan) {
 			reset({
@@ -45,9 +45,9 @@ const LoanUpdate = () => {
 	// 🔹 Submit update
 	const onSubmit = async data => {
         setLoading(true)
-		let imageUrl = loan.images; // keep old image by default
+		let imageUrl = loan.images; 
 
-		// ✅ If user selected a new image
+		
 		if (data.images && data.images.length > 0) {
 			const formData = new FormData();
 			formData.append('image', data.images[0]);
@@ -68,7 +68,7 @@ const LoanUpdate = () => {
 			maxLimit: data.maxLimit,
 			emiPlans: data.emiPlans,
 			showOnHome: data.showOnHome === 'true',
-			images: imageUrl, // ✅ old OR new
+			images: imageUrl, 
 		};
 
 		await axiosSecure.patch(`/all-loans/${id}`, updatedLoan);
