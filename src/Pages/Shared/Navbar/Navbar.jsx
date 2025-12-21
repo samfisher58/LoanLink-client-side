@@ -105,7 +105,7 @@ const Navbar = () => {
 											: 'hover:text-primary transition-colors'
 									}
 								>
-									Login
+									Log In
 								</NavLink>
 							</li>
 							<li>

@@ -15,6 +15,7 @@ const ManageLoans = () => {
 		data: managerCreatedLoans = [],
 		isPending,
 		isFetching,
+		refetch
 	} = useQuery({
 		queryKey: ['loan-created-by-manager', user?.email, searchText],
 		queryFn: async () => {
@@ -50,6 +51,8 @@ const ManageLoans = () => {
 				});
 				
 			}
+		 refetch();
+
 		});
 	};
 

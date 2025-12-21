@@ -36,7 +36,9 @@ export const router = createBrowserRouter([
 	{
 		path: '/',
 		Component: RootLayout,
+		errorElement: <div>error finding pages</div> ,
 		hydrateFallbackElement:<Loading></Loading>,
+
 		children: [
 			{
 				index: true,
@@ -48,12 +50,13 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'all-loans/:id',
-				// Component: LoanDetails,
 				element: <PrivateRoutes> <LoanDetails></LoanDetails> </PrivateRoutes>
 			},
 			{
 				path: 'loan-application/:id',
-				Component: LoanApplicationForm,
+				element: <PrivateRoutes>
+					<LoanApplicationForm></LoanApplicationForm>
+				</PrivateRoutes>
 			},
 			{
 				path: 'about-us',
@@ -126,7 +129,6 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'add-loan',
-				// Component: AddLoans,
 				element: <ManagerRoute>
 					<AddLoans></AddLoans>
 				</ManagerRoute>
@@ -139,7 +141,9 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'update-loans/:id',
-				Component: LoanUpdate
+				element: <ManagerRoute>
+					<LoanUpdate></LoanUpdate>
+				</ManagerRoute>
 			},
 			{
 				path: 'pending-loans',
@@ -151,7 +155,9 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'manager-profile',
-				Component: ManagerProfile,
+				element: <ManagerRoute>
+					<ManagerProfile></ManagerProfile>
+				</ManagerRoute>
 			},
 		],
 	},

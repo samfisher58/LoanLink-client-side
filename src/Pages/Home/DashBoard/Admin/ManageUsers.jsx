@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
-import { FcApprove, FcDisapprove } from 'react-icons/fc';
 import Loading from '../../../../Component/Loading/Loading';
 
 import { Link } from 'react-router';
@@ -86,7 +85,7 @@ const ManageUsers = () => {
 								<td className="flex gap-2">
 									<Link
 										to={`/dashboard/manage-user-role/${user._id}`}
-										// onClick={()=> handleApprove(user._id)}
+										
 										className="btn hover:btn-secondary"
 									>
 										Update Role
