@@ -4,28 +4,31 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../../Hooks/useAuth';
 import Loading from '../../../../Component/Loading/Loading';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router';
+import { Link } from 'react-router'; 
 
 const ManageLoans = () => {
 	const axiosSecure = useAxiosSecure();
 	const { user } = useAuth();
-	const [searchText,setSearchText] = useState('');
+	const [searchText, setSearchText] = useState('');
+
 	const {
 		data: managerCreatedLoans = [],
 		isPending,
-		refetch,
+		isFetching,
 	} = useQuery({
-		queryKey: ['loan-created-by-manager', user.email, searchText],
+		queryKey: ['loan-created-by-manager', user?.email, searchText],
 		queryFn: async () => {
 			const res = await axiosSecure.get(
-				`/all-loans-admin?email=${user.email}&searchText=${searchText}`
+				`/all-loans-admin?email=${user?.email}&searchText=${searchText}`
 			);
 			return res.data;
 		},
-		enabled:!!user.email,
+		enabled: !!user?.email,
 	});
-	if (isPending) {
-		return <Loading></Loading>;
+
+	
+	if (isPending || isFetching) {
+		return <Loading />;
 	}
 
 	const handleDelete = async managerCreatedLoan => {
@@ -39,28 +42,26 @@ const ManageLoans = () => {
 			confirmButtonText: 'Yes, delete it!',
 		}).then(async result => {
 			if (result.isConfirmed) {
-				await axiosSecure.delete(
-					`/all-loans/${managerCreatedLoan._id}`
-				);				
-                refetch();
+				await axiosSecure.delete(`/all-loans/${managerCreatedLoan._id}`);
 				Swal.fire({
 					title: 'Deleted!',
-					text: 'Your file has been deleted.',
+					text: 'Your loan has been deleted.',
 					icon: 'success',
 				});
+				
 			}
 		});
 	};
 
-	console.log(searchText);
-
 	return (
 		<div className="overflow-x-auto">
 			<h1 className="text-3xl m-5 text-center">
-				Loans Created By Me({managerCreatedLoans.length})
+				Loans Created By Me ({managerCreatedLoans.length})
 			</h1>
+
+			
 			<div className="flex justify-center my-5">
-				<label className="input">
+				<label className="input w-full max-w-md">
 					<svg
 						className="h-[1em] opacity-50"
 						xmlns="http://www.w3.org/2000/svg"
@@ -80,16 +81,18 @@ const ManageLoans = () => {
 					<input
 						type="search"
 						className="grow"
-						onChange={(e) => setSearchText(e.target.value)}
+						value={searchText} 
+						onChange={e => setSearchText(e.target.value)}
 						placeholder="Search by title or category"
 					/>
 				</label>
 			</div>
+
+			
 			<table className="table">
-				{/* head */}
 				<thead>
 					<tr>
-						<th></th>
+						<th>#</th>
 						<th>Image</th>
 						<th>Title</th>
 						<th>Interest</th>
@@ -98,42 +101,51 @@ const ManageLoans = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{managerCreatedLoans.map((managerCreatedLoan, i) => (
-						<tr key={managerCreatedLoan._id} className="hover:bg-base-300">
-							<th>{i + 1}</th>
-
-							<td>
-								<div className="flex items-center gap-3">
-									<div className="avatar">
-										<div className="mask mask-squircle h-12 w-12">
-											<img
-												src={managerCreatedLoan.images}
-												alt="Avatar Tailwind CSS Component"
-											/>
-										</div>
-									</div>
-								</div>
-							</td>
-
-							<td>{managerCreatedLoan.title}</td>
-							<td>{managerCreatedLoan.interestRate}</td>
-							<td>{managerCreatedLoan.category}</td>
-							<td className="flex gap-2 justify-center items-center">
-								<Link
-									to={`/dashboard/update-loans/${managerCreatedLoan._id}`}
-									className="btn btn-primary"
-								>
-									Update
-								</Link>
-								<button
-									onClick={() => handleDelete(managerCreatedLoan)}
-									className="btn btn-warning"
-								>
-									Delete
-								</button>
+					{managerCreatedLoans.length === 0 ? (
+						<tr>
+							<td
+								colSpan="6"
+								className="text-center py-12 text-gray-500 text-lg"
+							>
+								No loans found matching your search.
 							</td>
 						</tr>
-					))}
+					) : (
+						managerCreatedLoans.map((managerCreatedLoan, i) => (
+							<tr key={managerCreatedLoan._id} className="hover:bg-base-300">
+								<th>{i + 1}</th>
+								<td>
+									<div className="flex items-center gap-3">
+										<div className="avatar">
+											<div className="mask mask-squircle h-12 w-12">
+												<img
+													src={managerCreatedLoan.images || '/placeholder.jpg'}
+													alt={managerCreatedLoan.title}
+												/>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td>{managerCreatedLoan.title}</td>
+								<td>{managerCreatedLoan.interestRate}</td>
+								<td>{managerCreatedLoan.category}</td>
+								<td className="flex gap-2">
+									<Link
+										to={`/dashboard/update-loans/${managerCreatedLoan._id}`}
+										className="btn btn-primary btn-sm"
+									>
+										Update
+									</Link>
+									<button
+										onClick={() => handleDelete(managerCreatedLoan)}
+										className="btn btn-warning btn-sm"
+									>
+										Delete
+									</button>
+								</td>
+							</tr>
+						))
+					)}
 				</tbody>
 			</table>
 		</div>

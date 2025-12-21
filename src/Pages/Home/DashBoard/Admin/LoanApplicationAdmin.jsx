@@ -8,9 +8,9 @@ import { MdOutlineViewAgenda } from 'react-icons/md';
 const LoanApplicationAdmin = () => {
 	const axiosSecure = useAxiosSecure();
 	const [loanApplication, setLoanApplication]= useState(null)
-	const [searchText, setSearchText] = useState(null);
+	const [searchText, setSearchText] = useState('');
 	const detailsModalRef =useRef();
-	const { data: applications = [], isPending } = useQuery({
+	const { data: applications = [], isPending,isFetching } = useQuery({
 		queryKey: ['application-admin', searchText],
 		queryFn: async () => {
 			const res = await axiosSecure.get(
@@ -20,7 +20,7 @@ const LoanApplicationAdmin = () => {
 		},
 	});
 
-	if (isPending) {
+	if (isPending || isFetching ) {
 		return <Loading></Loading>;
 	}
 
@@ -32,10 +32,10 @@ const LoanApplicationAdmin = () => {
 	return (
 		<div>
 			<h1 className="text-3xl m-5 text-center">Loan Applications</h1>
-			<span className="mx-2 text-xl">Filter Application By:</span>
+			<span className="mx-2 text-xl">Filter Application By: </span>
 			<select
 				onChange={e => setSearchText(e.target.value)}
-				defaultValue=""
+				value={searchText}
 				className="select select-info"
 			>
 				<option value="">All</option>
