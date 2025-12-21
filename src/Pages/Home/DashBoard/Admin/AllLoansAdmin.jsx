@@ -84,7 +84,7 @@ const AllLoansAdmin = () => {
 			<h1 className="text-3xl m-5 text-center">
 				All Loans({allLoansAdmin.length})
 			</h1>
-			<table className="table">
+			<table className="table xs">
 				{/* head */}
 				<thead>
 					<tr>
@@ -93,7 +93,7 @@ const AllLoansAdmin = () => {
 						<th>Title</th>
 						<th>Interest</th>
 						<th>Category</th>
-						<th>Created By</th>
+						<th className="hidden lg:table">Created By</th>
 						<th>Show on Home</th>
 						<th>Action</th>
 					</tr>
@@ -118,7 +118,7 @@ const AllLoansAdmin = () => {
 							<td>{loan.title}</td>
 							<td>{loan.interestRate}</td>
 							<td>{loan.category}</td>
-							<td>{loan.createdBy}</td>
+							<td className="hidden lg:table">{loan.createdBy}</td>
 							<td>
 								{loan.showOnHome === true ? (
 									<span>Visible</span>
@@ -126,7 +126,7 @@ const AllLoansAdmin = () => {
 									<span>Hidden</span>
 								)}
 							</td>
-							<td className="flex gap-2 items-center">
+							<td className="flex flex-col md:flex-row  gap-2 items-center">
 								<Link
 									to={`/dashboard/update-loans/${loan._id}`}
 									className="btn btn-primary"
