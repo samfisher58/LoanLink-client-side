@@ -28,6 +28,7 @@ import Loading from "../Component/Loading/Loading";
 import ManageUsersRole from "../Pages/Home/DashBoard/Admin/ManageUsersRole";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
+import ErrorPage from '../Component/ErrorPage/ErrorPage'
 
 
 
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
 	{
 		path: '/',
 		Component: RootLayout,
-		errorElement: <div>error finding pages</div> ,
+		errorElement: <ErrorPage></ErrorPage>,
 		hydrateFallbackElement:<Loading></Loading>,
 
 		children: [
@@ -141,17 +142,23 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'update-loans/:id',
-				element: <ManagerRoute>
+				element: 
 					<LoanUpdate></LoanUpdate>
-				</ManagerRoute>
+				
 			},
 			{
 				path: 'pending-loans',
 				Component: PendingLoans,
+				element: <ManagerRoute>
+					<PendingLoans></PendingLoans>
+				</ManagerRoute>
 			},
 			{
 				path: 'approved-loans',
 				Component: ApprovedLoans,
+				element:<ManagerRoute>
+					<ApprovedLoans></ApprovedLoans>
+				</ManagerRoute>
 			},
 			{
 				path: 'manager-profile',

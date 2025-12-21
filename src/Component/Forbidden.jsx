@@ -1,5 +1,6 @@
 import React from 'react';
 import errorImg from '../assets/forbidden.jpg';
+import { Link } from 'react-router';
 
 const Forbidden = () => {
 	return (
@@ -16,6 +17,7 @@ const Forbidden = () => {
 				<p className="mt-2 text-gray-500">
 					You do not have permission to view this page.
 				</p>
+				<Link to='/' className='btn btn-primary mt-5'>Go back to Home</Link>
 			</div>
 		</div>
 	);

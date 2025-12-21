@@ -170,7 +170,7 @@ const Navbar = () => {
 									onClick={handleLogOut}
 									className="btn btn-primary btn-sm w-full"
 								>
-									Logout
+									Log Out
 								</button>
 							</li>
 						</ul>

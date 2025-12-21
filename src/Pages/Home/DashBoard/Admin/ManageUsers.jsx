@@ -59,7 +59,7 @@ const ManageUsers = () => {
 						className="grow"
 						value={searchText}
 						onChange={e => setSearchText(e.target.value)}
-						placeholder="Search by name, title or category"
+						placeholder="Search by name, title or role"
 					/>
 				</label>
 			</div>
