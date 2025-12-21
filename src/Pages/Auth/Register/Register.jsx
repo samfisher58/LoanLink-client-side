@@ -43,7 +43,7 @@ const Register = () => {
 					},
 				}).then(result => {
 					if (result.dismiss === Swal.DismissReason.timer) {
-						console.log('I was closed by the timer');
+						// console.log('I was closed by the timer');
 					}
 				});
 				// ends here
@@ -70,11 +70,7 @@ const Register = () => {
 						role: 'Borrower till approval',
 					};
 
-					axiosSecure.post('/users', newUser);
-					// if (res.data.insertedId) {
-					// 	console.log('data stored in database');
-					// }
-
+					axiosSecure.post('/users', newUser);				
 					updateUserProfile(userProfile)
 						.then(() => {
 							Swal.fire({
@@ -86,8 +82,13 @@ const Register = () => {
 							});
 							navigate('/');
 						})
-						.catch(error => {
-							console.log(error);
+						.catch(() => {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Something went wrong!',
+								footer: 'Please check you connection',
+							});
 						});
 				});
 			})

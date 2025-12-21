@@ -9,18 +9,6 @@ const PaymentSuccess = () => {
 	const [paymentInfo, setPaymentInfo] = useState([])
 	const axiosSecure = useAxiosSecure();
 	
-
-	// const { data } = useQuery({
-	// 	queryKey: ['payment-success', sessionId],
-	// 	enabled: !!sessionId,
-	// 	queryFn: async () => {
-	// 		const res = await axiosSecure.patch(
-	// 			`/verified-payment-success?session_id=${sessionId}`
-	// 		);
-	// 		console.log(res.data);
-	// 		return res.data;
-	// 	},
-	// });
     useEffect(() => {
 			if (sessionId) {
 				axiosSecure

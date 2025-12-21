@@ -14,8 +14,6 @@ const AllLoans = () => {
 			return res.data;
 		},
 	});
-
-	console.log(loans);
 	if (isPending) {
 		return <Loading></Loading>;
 	}

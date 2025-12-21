@@ -14,7 +14,7 @@ const ApprovedLoans = () => {
 			},
 		});
 
-        console.log(approvedApps);
+        
     return (
 			<div>
 				<h1 className="text-3xl m-5 text-center">Approved Loan Application</h1>

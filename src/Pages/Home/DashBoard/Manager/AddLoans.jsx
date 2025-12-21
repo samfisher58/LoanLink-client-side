@@ -40,7 +40,7 @@ const AddLoans = () => {
 
 			axiosSecure.post(`/all-loans?email=${user.email}`, payload)
 			.then(()=>{
-                console.log('data inserted to database', res.data);
+                
 				
 				Swal.fire({
 					position: 'top-end',

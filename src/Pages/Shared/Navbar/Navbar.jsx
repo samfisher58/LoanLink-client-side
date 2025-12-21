@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router'; 
+import { NavLink } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
 
 const Navbar = () => {
@@ -8,10 +8,9 @@ const Navbar = () => {
 	const handleLogOut = () => {
 		logOut()
 			.then(() => {})
-			.catch(error => console.log(error));
+			.catch(() => {});
 	};
 
-	
 	const publicLinks = (
 		<>
 			<li>
@@ -67,7 +66,6 @@ const Navbar = () => {
 
 	return (
 		<div className="navbar bg-base-100 shadow-md px-4">
-			
 			<div className="navbar-start">
 				<NavLink
 					to="/"
@@ -77,7 +75,6 @@ const Navbar = () => {
 				</NavLink>
 			</div>
 
-			
 			<div className="navbar-center hidden lg:flex">
 				<ul className="menu menu-horizontal px-1 gap-2">
 					{publicLinks}
@@ -125,9 +122,7 @@ const Navbar = () => {
 				</ul>
 			</div>
 
-			
 			<div className="navbar-end flex items-center gap-3">
-				
 				<label className="swap swap-rotate btn btn-ghost btn-circle">
 					<input type="checkbox" className="theme-controller" value="dark" />
 					<svg
@@ -146,7 +141,6 @@ const Navbar = () => {
 					</svg>
 				</label>
 
-				
 				{user ? (
 					<div className="dropdown dropdown-end">
 						<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -177,7 +171,6 @@ const Navbar = () => {
 					</div>
 				) : null}
 
-				
 				<div className="dropdown lg:hidden">
 					<label tabIndex={0} className="btn btn-ghost">
 						<svg

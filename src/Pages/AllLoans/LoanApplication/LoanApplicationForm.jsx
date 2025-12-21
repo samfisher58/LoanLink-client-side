@@ -29,13 +29,11 @@ const LoanApplicationForm = () => {
 	if (isPending) {
 		return <Loading></Loading>;
 	}
-	console.log(user);
 
 	const handleLoanApplication = (data, e) => {
 		e.preventDefault();
 		data.loanDetailsId = loan._id;
 		axiosSecure.post('/loan-application', data).then(res => {
-			
 			if (res.data.insertedId) {
 				Swal.fire({
 					position: 'center',
@@ -45,7 +43,6 @@ const LoanApplicationForm = () => {
 					timer: 1500,
 				});
 				navigate('/dashboard/my-loans');
-				
 			}
 		});
 	};
