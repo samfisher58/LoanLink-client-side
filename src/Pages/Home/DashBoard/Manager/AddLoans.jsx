@@ -5,6 +5,7 @@ import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import Loading from '../../../../Component/Loading/Loading';
 import useAuth from '../../../../Hooks/useAuth';
 import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const AddLoans = () => {
     const {user} = useAuth()
@@ -40,7 +41,15 @@ const AddLoans = () => {
 			axiosSecure.post(`/all-loans?email=${user.email}`, payload)
 			.then(()=>{
                 console.log('data inserted to database', res.data);
-				alert('data inserted');
+				
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Loan Created Successfully!!!',
+					showConfirmButton: false,
+					timer: 1000,
+				});
+
                 setLoading(false);
 				navigate('/dashboard/manage-loans');
             })			

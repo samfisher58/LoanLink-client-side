@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../../Hooks/useAuth';
@@ -9,12 +9,20 @@ import { Link } from 'react-router';
 const ManageLoans = () => {
 	const axiosSecure = useAxiosSecure();
 	const { user } = useAuth();
-	const { data: managerCreatedLoans = [], isPending, refetch } = useQuery({
-		queryKey: ['loan-created-by-manager', user.email],
+	const [searchText,setSearchText] = useState('');
+	const {
+		data: managerCreatedLoans = [],
+		isPending,
+		refetch,
+	} = useQuery({
+		queryKey: ['loan-created-by-manager', user.email, searchText],
 		queryFn: async () => {
-			const res = await axiosSecure.get(`/all-loans-admin?email=${user.email}`);
+			const res = await axiosSecure.get(
+				`/all-loans-admin?email=${user.email}&searchText=${searchText}`
+			);
 			return res.data;
 		},
+		enabled:!!user.email,
 	});
 	if (isPending) {
 		return <Loading></Loading>;
@@ -44,11 +52,39 @@ const ManageLoans = () => {
 		});
 	};
 
+	console.log(searchText);
+
 	return (
 		<div className="overflow-x-auto">
 			<h1 className="text-3xl m-5 text-center">
 				Loans Created By Me({managerCreatedLoans.length})
 			</h1>
+			<div className="flex justify-center my-5">
+				<label className="input">
+					<svg
+						className="h-[1em] opacity-50"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+					>
+						<g
+							strokeLinejoin="round"
+							strokeLinecap="round"
+							strokeWidth="2.5"
+							fill="none"
+							stroke="currentColor"
+						>
+							<circle cx="11" cy="11" r="8"></circle>
+							<path d="m21 21-4.3-4.3"></path>
+						</g>
+					</svg>
+					<input
+						type="search"
+						className="grow"
+						onChange={(e) => setSearchText(e.target.value)}
+						placeholder="Search by title or category"
+					/>
+				</label>
+			</div>
 			<table className="table">
 				{/* head */}
 				<thead>
@@ -95,7 +131,6 @@ const ManageLoans = () => {
 								>
 									Delete
 								</button>
-								<button className="btn btn-secondary">Search</button>
 							</td>
 						</tr>
 					))}
