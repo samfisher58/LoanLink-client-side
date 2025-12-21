@@ -82,7 +82,8 @@ const DashBoardLayout = () => {
 
 								{/* List item */}
 								<li className="gap-2">
-									
+									{role === 'Borrower' && (
+										<>
 											<NavLink
 												className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
 												data-tip="My loans"
@@ -102,7 +103,8 @@ const DashBoardLayout = () => {
 													My Profile
 												</span>
 											</NavLink>
-										
+										</>
+									)}
 
 									{role === 'Manager' && (
 										<>
@@ -163,7 +165,6 @@ const DashBoardLayout = () => {
 										</>
 									)}
 
-									
 									{role === 'Admin' && (
 										<>
 											{/* Manage Users(admin) */}

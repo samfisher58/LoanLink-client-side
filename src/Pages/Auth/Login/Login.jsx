@@ -4,6 +4,7 @@ import useAuth from '../../../Hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../../../Component/Loading/Loading';
+import Swal from 'sweetalert2';
 
 const Login = () => {
 	const {
@@ -17,12 +18,25 @@ const Login = () => {
 	const handleLogin = data => {
 		signInUser(data.email, data.password)
 			.then(() => {
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Login Successful',
+					showConfirmButton: false,
+					timer: 1000,
+				});
 				navigate(location?.state || '/');
 			})
-			.catch(error => {
-				console.log(error);
-				setLoading(false)
-				alert(error);
+			.catch(() => {
+				
+				setLoading(false);
+				Swal.fire({
+					position: 'top-end',
+					icon: 'warning',
+					title: "Invalid Credential",
+					showConfirmButton: false,
+					timer: 2000,
+				});
 			});
 	};
 

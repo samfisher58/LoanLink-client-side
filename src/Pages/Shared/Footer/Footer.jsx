@@ -18,7 +18,7 @@ const Footer = () => {
 					<p>
 						Loan Link.
 						<br />
-						Providing reliable tech since 1992
+						Providing reliable Loans since 1992
 					</p>
 				</aside>
 				<nav>

@@ -6,6 +6,7 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
 import Loading from '../../../Component/Loading/Loading';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const Register = () => {
 	const {
@@ -23,6 +24,30 @@ const Register = () => {
 
 		registerUser(data.email, data.password)
 			.then(() => {
+				// here sweet alert section took place
+				let timerInterval;
+				Swal.fire({
+					title: 'Account created',
+					html: 'Please wait ! <b></b> Your data is being saved.',
+					timer: 5000,
+					timerProgressBar: true,
+					didOpen: () => {
+						Swal.showLoading();
+						const timer = Swal.getPopup().querySelector('b');
+						timerInterval = setInterval(() => {
+							timer.textContent = `${Swal.getTimerLeft()}`;
+						}, 100);
+					},
+					willClose: () => {
+						clearInterval(timerInterval);
+					},
+				}).then(result => {
+					if (result.dismiss === Swal.DismissReason.timer) {
+						console.log('I was closed by the timer');
+					}
+				});
+				// ends here
+
 				const formData = new FormData();
 				formData.append('image', profileImg);
 
@@ -32,7 +57,6 @@ const Register = () => {
 
 				axios.post(imageBB_API_URL, formData).then(res => {
 					const photoURL = res.data.data.url;
-
 					const userProfile = {
 						displayName: data.name,
 						photoURL: photoURL,
@@ -43,17 +67,23 @@ const Register = () => {
 						email: data.email,
 						photoURL: photoURL,
 						userType: data.appliedRole,
-						role: 'user by till approval',
+						role: 'Borrower till approval',
 					};
 
 					axiosSecure.post('/users', newUser);
-					if (res.data.insertedId) {
-						console.log('data stored in database');
-					}
+					// if (res.data.insertedId) {
+					// 	console.log('data stored in database');
+					// }
 
 					updateUserProfile(userProfile)
 						.then(() => {
-							console.log('profile updated from register', userProfile);
+							Swal.fire({
+								position: 'top-end',
+								icon: 'success',
+								title: 'Register Successful!',
+								showConfirmButton: false,
+								timer: 1000,
+							});
 							navigate('/');
 						})
 						.catch(error => {
