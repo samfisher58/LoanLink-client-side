@@ -34,4 +34,5 @@ Loan Link lets you borrow micro loan on your daily activities.User can see vario
 A manager through this web application can manage loans, add new loans and update the existing loans precisely 
 
 A admin can chose what loan to show on website or not ,
-He/She can see all the applied loan applications, pending approved and rejected loan application through the application, They are also responsible for updating the users role
+He/She can see all the applied loan applications, pending approved and rejected loan application through the application, They are also responsible for updating the users role.
+

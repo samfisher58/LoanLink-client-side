@@ -66,6 +66,51 @@ const Navbar = () => {
 
 	return (
 		<div className="navbar bg-base-100 shadow-md px-4">
+			<div className="dropdown lg:hidden">
+				<label tabIndex={0} className="btn btn-ghost">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M4 6h16M4 12h16M4 18h7"
+						/>
+					</svg>
+				</label>
+				<ul
+					tabIndex={0}
+					className="menu dropdown-content mt-3 p-4 shadow bg-base-100 rounded-box w-52 z-10"
+				>
+					{publicLinks}
+					{user ? (
+						<li>
+							<NavLink
+								to="/dashboard"
+								className={({ isActive }) =>
+									isActive ? 'text-primary font-bold' : ''
+								}
+							>
+								Dashboard
+							</NavLink>
+						</li>
+					) : (
+						<>
+							<li>
+								<NavLink to="/login">Login</NavLink>
+							</li>
+							<li>
+								<NavLink to="/register">Register</NavLink>
+							</li>
+						</>
+					)}
+				</ul>
+			</div>
 			<div className="navbar-start">
 				<NavLink
 					to="/"
@@ -170,52 +215,6 @@ const Navbar = () => {
 						</ul>
 					</div>
 				) : null}
-
-				<div className="dropdown lg:hidden">
-					<label tabIndex={0} className="btn btn-ghost">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M4 6h16M4 12h16M4 18h7"
-							/>
-						</svg>
-					</label>
-					<ul
-						tabIndex={0}
-						className="menu dropdown-content mt-3 p-4 shadow bg-base-100 rounded-box w-52 z-10"
-					>
-						{publicLinks}
-						{user ? (
-							<li>
-								<NavLink
-									to="/dashboard"
-									className={({ isActive }) =>
-										isActive ? 'text-primary font-bold' : ''
-									}
-								>
-									Dashboard
-								</NavLink>
-							</li>
-						) : (
-							<>
-								<li>
-									<NavLink to="/login">Login</NavLink>
-								</li>
-								<li>
-									<NavLink to="/register">Register</NavLink>
-								</li>
-							</>
-						)}
-					</ul>
-				</div>
 			</div>
 		</div>
 	);

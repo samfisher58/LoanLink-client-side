@@ -48,6 +48,21 @@ const Login = () => {
 		<div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl">
 			<h3 className="text-3xl text-center">Welcome back</h3>
 			<p className="text-center">Please Login</p>
+
+			<div className="bg-blue-50 border border-blue-200 p-4 rounded mb-6">
+				<h4 className="font-semibold text-blue-700 mb-2">Test Credentials</h4>
+				<p className="text-gray-700 text-sm">
+					<span className="font-semibold">Manager:</span>  <br />
+					E: amimanager1@gmail.com
+					<br />
+					P: Amimanager1@gmail.com
+				</p>
+				<p className="text-gray-700 text-sm">
+					<span className="font-semibold">Admin: <br /></span>E: amiadmin1@gmail.com
+					<br />
+					P: Amiadmin1@gmail.com
+				</p>
+			</div>
 			<form className="card-body" onSubmit={handleSubmit(handleLogin)}>
 				<fieldset className="fieldset">
 					{/* email field */}
