@@ -89,7 +89,7 @@ const AllLoansAdmin = () => {
 				<thead>
 					<tr>
 						<th></th>
-						<th>image</th>
+						{/* <th>image</th> */}
 						<th>Title</th>
 						<th>Interest</th>
 						<th>Category</th>
@@ -103,7 +103,7 @@ const AllLoansAdmin = () => {
 						<tr key={loan._id}>
 							<th>{i + 1}</th>
 
-							<td>
+							{/* <td>
 								<div className="flex items-center gap-3">
 									<div className="avatar">
 										<div className="mask mask-squircle h-12 w-12">
@@ -114,7 +114,7 @@ const AllLoansAdmin = () => {
 										</div>
 									</div>
 								</div>
-							</td>
+							</td> */}
 							<td>{loan.title}</td>
 							<td>{loan.interestRate}</td>
 							<td>{loan.category}</td>
