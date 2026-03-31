@@ -48,7 +48,7 @@ const LoanApplicationForm = () => {
 	};
 
 	return (
-		<div>
+		<div className="max-w-7xl mx-auto p-5">
 			{/* loan application form */}
 			<h4 className="text-2xl font-semibold my-5">
 				Submit your loan application

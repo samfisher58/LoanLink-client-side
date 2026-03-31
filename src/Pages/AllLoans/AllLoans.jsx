@@ -18,7 +18,7 @@ const AllLoans = () => {
 		return <Loading></Loading>;
 	}
 	return (
-		<div>
+		<div className="max-w-7xl mx-auto p-5">
 			<h2 className="my-5 text-3xl font-semibold text-center">
 				Available Loans ({loans.length})
 			</h2>
@@ -34,7 +34,7 @@ const AllLoans = () => {
 							<img
 								src={loan.images}
 								alt={loan.title}
-								loading='lazy'
+								loading="lazy"
 								className="rounded-xl transition-transform duration-300 hover:scale-105"
 							/>
 						</figure>
