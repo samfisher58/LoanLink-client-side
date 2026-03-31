@@ -34,6 +34,7 @@ const AllLoans = () => {
 							<img
 								src={loan.images}
 								alt={loan.title}
+								loading='lazy'
 								className="rounded-xl transition-transform duration-300 hover:scale-105"
 							/>
 						</figure>
